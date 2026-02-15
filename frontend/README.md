@@ -1,70 +1,246 @@
-# Getting Started with Create React App
+# Bellcorp Personal Expense Tracker (MERN Stack)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A full-stack Personal Expense Tracker application built using the MERN stack (MongoDB, Express, React, Node.js).  
+This project allows users to securely manage their daily expenses with advanced filtering, pagination, and dashboard analytics.
 
-## Available Scripts
 
-In the project directory, you can run:
+# Tech Stack
 
-### `npm start`
+## Frontend
+- React (Create React App)
+- React Router
+- Context API
+- Fetch API
+- Plain CSS (Responsive)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Backend
+- Node.js
+- Express.js
+- MongoDB Atlas
+- Mongoose
+- JWT Authentication
+- bcrypt (Password hashing)
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+---
 
-### `npm test`
+# Features
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Authentication
+- User Registration
+- User Login
+- JWT-based authentication
+- Protected Routes
+- Logout functionality
 
-### `npm run build`
+---
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Transaction Management
+Users can:
+- Add new transactions
+- Edit existing transactions
+- Delete transactions
+- View transaction details (Modal)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Each transaction contains:
+- Title
+- Amount
+- Category
+- Date
+- Notes (optional)
+- User reference
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+---
 
-### `npm run eject`
+## Transaction Explorer
+- Dynamic pagination (Load More)
+- Search by text
+- Filter by category
+- Filter by amount range
+- Filter by date range
+- Empty state handling
+- Responsive layout
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+---
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Dashboard
+- Total expense summary
+- Category-based breakdown
+- Recent transactions preview
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+---
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+# Project Structure
 
-## Learn More
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+root/
+│
+├── backend/
+│   ├── config/
+│   │   └── db.js
+│   ├── controllers/
+│   │   ├── authController.js
+│   │   ├── transactionController.js
+│   │   └── dashboardController.js
+│   ├── middleware/
+│   │   └── authMiddleware.js
+│   ├── models/
+│   │   ├── User.js
+│   │   └── Transaction.js
+│   ├── routes/
+│   │   ├── authRoutes.js
+│   │   ├── transactionRoutes.js
+│   │   └── dashboardRoutes.js
+│   └── index.js
+│
+├── frontend/
+│   ├── src/
+│   │   ├── components/
+│   │   │   └── Navbar/
+│   │   ├── context/
+│   │   │   └── AuthContext.js
+│   │   ├── pages/
+│   │   │   ├── Login/
+│   │   │   ├── Register/
+│   │   │   ├── Dashboard/
+│   │   │   └── Explorer/
+│   │   ├── services/
+│   │   │   └── api.js
+│   │   ├── App.js
+│   │   └── index.js
+│
+└── README.md
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+```
 
-### Code Splitting
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+# Authentication Flow
 
-### Analyzing the Bundle Size
+1. User registers with email & password.
+2. Password is hashed using bcrypt.
+3. On login, JWT token is generated.
+4. Token is stored in localStorage.
+5. Protected routes verify token using middleware.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+Header format:
+```
 
-### Making a Progressive Web App
+Authorization: Bearer <token>
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+```
 
-### Advanced Configuration
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+# Filtering Logic
 
-### Deployment
+The backend supports dynamic filtering:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+- `search`
+- `category`
+- `min` & `max` amount
+- `startDate` & `endDate`
+- Pagination (`page`, `limit`)
 
-### `npm run build` fails to minify
+Query example:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+```
+
+/api/transactions?page=1&limit=5&search=food&min=100&max=2000
+
+```
+
+---
+
+# Environment Variables
+
+## Backend
+
+Create:
+
+### `.env.development`
+```
+
+PORT=5000
+MONGO_URI=your_mongodb_connection_string
+JWT_SECRET=your_secret_key
+NODE_ENV=development
+
+```
+
+### `.env.production`
+```
+
+PORT=10000
+MONGO_URI=your_mongodb_connection_string
+JWT_SECRET=your_secret_key
+NODE_ENV=production
+
+```
+
+---
+
+# Running Locally
+
+## Backend
+
+```
+
+cd backend
+npm install
+npm run dev
+
+```
+
+## Frontend
+
+```
+
+cd frontend
+npm install
+npm start
+
+```
+
+---
+
+# Deployment
+
+## Backend
+- Hosted on Render (Web Service)
+- Environment variables configured in Render dashboard
+
+## Frontend
+- Hosted on Render (Static Site)
+- Production API URL updated in:
+```
+
+frontend/src/services/api.js
+
+```
+
+---
+
+# Key Highlights
+
+- Clean separation of frontend & backend
+- Secure JWT-based authentication
+- Scalable filtering system
+- Pagination support
+- Responsive UI
+- Professional folder structure
+
+---
+
+# 👨‍💻 Author
+
+Prasannakumar Bogachandrapu  
+Full Stack Developer  
+
+---
+
+# 📧 Submission
+
+Submitted to:
+engineering@bellcorpstudio.com
+```
