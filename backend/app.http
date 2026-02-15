@@ -1,0 +1,58 @@
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5OTE4YzA5MGZiMzdkOWUxNTNlYzg3MSIsImlhdCI6MTc3MTE0Njc4NiwiZXhwIjoxNzcxNzUxNTg2fQ.0jVLf-cmuADrMv2XeCO_M_vQfG7Yjrj8fz-SFxCS5wo
+@baseUrl = http://localhost:5000
+
+
+### Test Server
+GET {{baseUrl}}/
+
+### Register User
+POST {{baseUrl}}/api/auth/register
+Content-Type: application/json
+
+{
+  "name": "Prasanna",
+  "email": "prasanna@test.com",
+  "password": "123456"
+}
+
+### Login User
+POST {{baseUrl}}/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "prasanna@test.com",
+  "password": "123456"
+}
+
+### Add Transaction
+POST {{baseUrl}}/api/transactions
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "title": "Groceries",
+  "amount": 500,
+  "category": "Food",
+  "date": "2026-02-14",
+  "notes": "Weekly shopping"
+}
+
+### Get Transactions
+GET {{baseUrl}}/api/transactions?page=1&limit=5
+Authorization: Bearer {{token}}
+
+### Search Transactions
+GET {{baseUrl}}/api/transactions?search=gro
+Authorization: Bearer {{token}}
+
+### Filter by Category
+GET {{baseUrl}}/api/transactions?category=Food
+Authorization: Bearer {{token}}
+
+### Delete Transaction (Replace ID)
+DELETE {{baseUrl}}/api/transactions/69918e3146a2b569631b8adc
+Authorization: Bearer {{token}}
+
+### Get Dashboard Data
+GET {{baseUrl}}/api/dashboard
+Authorization: Bearer {{token}}

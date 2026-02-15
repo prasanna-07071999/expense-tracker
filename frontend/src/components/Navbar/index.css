@@ -1,0 +1,51 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #343a40;
+  padding: 12px 20px;
+  color: white;
+}
+
+.nav-left h2 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.nav-links {
+  display: flex;
+  gap: 15px;
+}
+
+.nav-links a {
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.nav-links a:hover {
+  text-decoration: underline;
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.nav-right button {
+  padding: 6px 10px;
+  background-color: #dc3545;
+  border: none;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.nav-right button:hover {
+  background-color: #b02a37;
+}
+
+.user-name {
+  font-size: 14px;
+}
